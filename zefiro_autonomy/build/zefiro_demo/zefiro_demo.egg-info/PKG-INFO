@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: zefiro-demo
+Version: 0.1.0
+Summary: Minimal ROS 2 demo for the Zefiro autonomy pipeline.
+Maintainer: Zefiro Autonomy Team
+Maintainer-email: team@zefiro.local
+License: MIT

@@ -1,0 +1,25 @@
+[2.412s] Invoking command in '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/src/zefiro_demo': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/zefiro_demo build --build-base /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build install --record /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/install.log --single-version-externally-managed install_data
+[3.070s] running egg_info
+[3.129s] writing ../../build/zefiro_demo/zefiro_demo.egg-info/PKG-INFO
+[3.131s] writing dependency_links to ../../build/zefiro_demo/zefiro_demo.egg-info/dependency_links.txt
+[3.133s] writing entry points to ../../build/zefiro_demo/zefiro_demo.egg-info/entry_points.txt
+[3.135s] writing requirements to ../../build/zefiro_demo/zefiro_demo.egg-info/requires.txt
+[3.136s] writing top-level names to ../../build/zefiro_demo/zefiro_demo.egg-info/top_level.txt
+[3.273s] reading manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'
+[3.275s] writing manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'
+[3.275s] running build
+[3.275s] running build_py
+[3.276s] running install
+[3.291s] running install_lib
+[3.346s] running install_data
+[3.347s] copying package.xml -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/zefiro_demo
+[3.347s] running install_egg_info
+[3.402s] removing '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo-0.1.0-py3.12.egg-info' (and everything under it)
+[3.403s] Copying ../../build/zefiro_demo/zefiro_demo.egg-info to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo-0.1.0-py3.12.egg-info
+[3.408s] running install_scripts
+[3.746s] Installing avoidance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+[3.747s] Installing fake_front_clearance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+[3.748s] Installing fake_goal_velocity_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+[3.748s] Installing logger_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+[3.748s] writing list of installed files to '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/install.log'
+[3.830s] Invoked command in '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/src/zefiro_demo' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/zefiro_demo build --build-base /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build install --record /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/install.log --single-version-externally-managed install_data

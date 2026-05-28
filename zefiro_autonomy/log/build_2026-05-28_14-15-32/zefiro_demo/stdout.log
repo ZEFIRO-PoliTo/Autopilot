@@ -1,0 +1,22 @@
+running egg_info
+writing ../../build/zefiro_demo/zefiro_demo.egg-info/PKG-INFO
+writing dependency_links to ../../build/zefiro_demo/zefiro_demo.egg-info/dependency_links.txt
+writing entry points to ../../build/zefiro_demo/zefiro_demo.egg-info/entry_points.txt
+writing requirements to ../../build/zefiro_demo/zefiro_demo.egg-info/requires.txt
+writing top-level names to ../../build/zefiro_demo/zefiro_demo.egg-info/top_level.txt
+reading manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'
+writing manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo-0.1.0-py3.12.egg-info' (and everything under it)
+Copying ../../build/zefiro_demo/zefiro_demo.egg-info to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo-0.1.0-py3.12.egg-info
+running install_scripts
+Installing avoidance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+Installing fake_front_clearance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+Installing fake_goal_velocity_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+Installing logger_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+writing list of installed files to '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/install.log'

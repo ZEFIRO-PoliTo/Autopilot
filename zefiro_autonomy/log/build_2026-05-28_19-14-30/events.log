@@ -1,0 +1,129 @@
+[0.000000] (-) TimerEvent: {}
+[0.005510] (zefiro_demo) JobQueued: {'identifier': 'zefiro_demo', 'dependencies': OrderedDict()}
+[0.008708] (zefiro_demo) JobStarted: {'identifier': 'zefiro_demo'}
+[0.088195] (-) TimerEvent: {}
+[0.189546] (-) TimerEvent: {}
+[0.291475] (-) TimerEvent: {}
+[0.392934] (-) TimerEvent: {}
+[0.494342] (-) TimerEvent: {}
+[0.596005] (-) TimerEvent: {}
+[0.697038] (-) TimerEvent: {}
+[0.798157] (-) TimerEvent: {}
+[0.899263] (-) TimerEvent: {}
+[1.000392] (-) TimerEvent: {}
+[1.102127] (-) TimerEvent: {}
+[1.203136] (-) TimerEvent: {}
+[1.304539] (-) TimerEvent: {}
+[1.405506] (-) TimerEvent: {}
+[1.506642] (-) TimerEvent: {}
+[1.607586] (-) TimerEvent: {}
+[1.709098] (-) TimerEvent: {}
+[1.811115] (-) TimerEvent: {}
+[1.912627] (-) TimerEvent: {}
+[2.013919] (-) TimerEvent: {}
+[2.115266] (-) TimerEvent: {}
+[2.216522] (-) TimerEvent: {}
+[2.317852] (-) TimerEvent: {}
+[2.418693] (-) TimerEvent: {}
+[2.519932] (-) TimerEvent: {}
+[2.620773] (-) TimerEvent: {}
+[2.721705] (-) TimerEvent: {}
+[2.822721] (-) TimerEvent: {}
+[2.923927] (-) TimerEvent: {}
+[3.025006] (-) TimerEvent: {}
+[3.126236] (-) TimerEvent: {}
+[3.227388] (-) TimerEvent: {}
+[3.328655] (-) TimerEvent: {}
+[3.430066] (-) TimerEvent: {}
+[3.531139] (-) TimerEvent: {}
+[3.632011] (-) TimerEvent: {}
+[3.732658] (-) TimerEvent: {}
+[3.833728] (-) TimerEvent: {}
+[3.936109] (-) TimerEvent: {}
+[4.037772] (-) TimerEvent: {}
+[4.138976] (-) TimerEvent: {}
+[4.240024] (-) TimerEvent: {}
+[4.340970] (-) TimerEvent: {}
+[4.441976] (-) TimerEvent: {}
+[4.542776] (-) TimerEvent: {}
+[4.643607] (-) TimerEvent: {}
+[4.744428] (-) TimerEvent: {}
+[4.845422] (-) TimerEvent: {}
+[4.946593] (-) TimerEvent: {}
+[5.047682] (-) TimerEvent: {}
+[5.148810] (-) TimerEvent: {}
+[5.250504] (-) TimerEvent: {}
+[5.351646] (-) TimerEvent: {}
+[5.453484] (-) TimerEvent: {}
+[5.554644] (-) TimerEvent: {}
+[5.655713] (-) TimerEvent: {}
+[5.757055] (-) TimerEvent: {}
+[5.858249] (-) TimerEvent: {}
+[5.959258] (-) TimerEvent: {}
+[6.060470] (-) TimerEvent: {}
+[6.161284] (-) TimerEvent: {}
+[6.262057] (-) TimerEvent: {}
+[6.363039] (-) TimerEvent: {}
+[6.464139] (-) TimerEvent: {}
+[6.565341] (-) TimerEvent: {}
+[6.666209] (-) TimerEvent: {}
+[6.767170] (-) TimerEvent: {}
+[6.868323] (-) TimerEvent: {}
+[6.969687] (-) TimerEvent: {}
+[7.070738] (-) TimerEvent: {}
+[7.171401] (-) TimerEvent: {}
+[7.239831] (zefiro_demo) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/zefiro_demo', 'build', '--build-base', '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build', 'install', '--record', '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/src/zefiro_demo', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'MESA_D3D12_DEFAULT_ADAPTER_NAME': 'NVIDIA', 'USER': 'evang', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'WT_PROFILE_ID': '{e439ca8b-563c-57e2-8d0b-f928e53acb38}', 'HOME': '/home/evang', 'OLDPWD': '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy', 'NVM_BIN': '/home/evang/.nvm/versions/node/v20.19.6/bin', 'NVM_INC': '/home/evang/.nvm/versions/node/v20.19.6/include/node', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'WSL_DISTRO_NAME': 'Ubuntu', 'NVM_DIR': '/home/evang/.nvm', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'evang', 'NAME': 'LAPTOP-6P3BSJM9', 'WSL_INTEROP': '/run/WSL/675551_interop', 'PULSE_SERVER': 'unix:/mnt/wslg/PulseServer', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'CADP_ARCH': 'x64', 'TERM': 'xterm-256color', 'PATH': '/home/evang/.local/bin:/opt/ros/jazzy/bin:/home/evang/.nvm/versions/node/v20.19.6/bin:/home/evang/miniconda3/bin:/home/evang/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python313/Scripts/:/mnt/c/Python313/:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Program Files/Java/jre1.8.0_51/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/MATLAB/R2024b/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Users/evang/mingw64/mingw64/bin:/mnt/c/Users/evang/winutils/bin:/mnt/c/Users/evang/apache-maven-3.9.9-bin/apache-maven-3.9.9/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/GitHub CLI/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Program Files/PowerShell/7/:/mnt/c/Users/evang/.cargo/bin:/mnt/c/Users/evang/AppData/Local/Programs/Python/Python312/Scripts/:/mnt/c/Users/evang/AppData/Local/Programs/Python/Python312/:/mnt/c/Users/evang/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/evang/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/evang/Desktop/PyCharm 2021.3.2/bin:/mnt/c/Users/evang/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/evang/Desktop/flutter/bin:/mnt/c/texlive/2024/bin/windows:/mnt/c/Users/evang/.dotnet/tools:/mnt/c/Users/evang/AppData/Roaming/npm:/snap/bin:/opt/OpenVSP/python/openvsp:/opt/xtensa-esp-elf/bin/:/mnt/c/Users/evang/Desktop/CADP/bin.x64:/mnt/c/Users/evang/Desktop/CADP/com', 'WT_SESSION': '95e3c33b-d698-48d9-bb49-3cd357c21052', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': '172.26.48.1:0', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'CADP': '/mnt/c/Users/evang/Desktop/CADP', 'AMENT_PREFIX_PATH': '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GALLIUM_DRIVER': 'd3d12', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo', 'NVM_CD_FLAGS': '', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages:/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages:/opt/OpenVSP/python:', 'COLCON': '1', 'WSL2_GUI_APPS_ENABLED': '1', 'HOSTTYPE': 'x86_64', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor', 'WSLENV': 'WT_SESSION:WT_PROFILE_ID:'}, 'shell': False}
+[7.272005] (-) TimerEvent: {}
+[7.373674] (-) TimerEvent: {}
+[7.475085] (-) TimerEvent: {}
+[7.576282] (-) TimerEvent: {}
+[7.677333] (-) TimerEvent: {}
+[7.778539] (-) TimerEvent: {}
+[7.879830] (-) TimerEvent: {}
+[7.981600] (-) TimerEvent: {}
+[8.082799] (-) TimerEvent: {}
+[8.183785] (-) TimerEvent: {}
+[8.284766] (-) TimerEvent: {}
+[8.386243] (-) TimerEvent: {}
+[8.480060] (zefiro_demo) StdoutLine: {'line': b'running egg_info\n'}
+[8.492584] (-) TimerEvent: {}
+[8.563646] (zefiro_demo) StdoutLine: {'line': b'writing ../../build/zefiro_demo/zefiro_demo.egg-info/PKG-INFO\n'}
+[8.566308] (zefiro_demo) StdoutLine: {'line': b'writing dependency_links to ../../build/zefiro_demo/zefiro_demo.egg-info/dependency_links.txt\n'}
+[8.568614] (zefiro_demo) StdoutLine: {'line': b'writing entry points to ../../build/zefiro_demo/zefiro_demo.egg-info/entry_points.txt\n'}
+[8.570291] (zefiro_demo) StdoutLine: {'line': b'writing requirements to ../../build/zefiro_demo/zefiro_demo.egg-info/requires.txt\n'}
+[8.570880] (zefiro_demo) StdoutLine: {'line': b'writing top-level names to ../../build/zefiro_demo/zefiro_demo.egg-info/top_level.txt\n'}
+[8.593200] (-) TimerEvent: {}
+[8.694627] (-) TimerEvent: {}
+[8.772730] (zefiro_demo) StdoutLine: {'line': b"reading manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'\n"}
+[8.781057] (zefiro_demo) StdoutLine: {'line': b"writing manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'\n"}
+[8.782557] (zefiro_demo) StdoutLine: {'line': b'running build\n'}
+[8.783724] (zefiro_demo) StdoutLine: {'line': b'running build_py\n'}
+[8.787024] (zefiro_demo) StdoutLine: {'line': b'running install\n'}
+[8.795151] (-) TimerEvent: {}
+[8.818337] (zefiro_demo) StdoutLine: {'line': b'running install_lib\n'}
+[8.895688] (-) TimerEvent: {}
+[8.931078] (zefiro_demo) StdoutLine: {'line': b'running install_data\n'}
+[8.931690] (zefiro_demo) StdoutLine: {'line': b'running install_egg_info\n'}
+[8.996073] (-) TimerEvent: {}
+[9.036210] (zefiro_demo) StdoutLine: {'line': b"removing '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo-0.1.0-py3.12.egg-info' (and everything under it)\n"}
+[9.054174] (zefiro_demo) StdoutLine: {'line': b'Copying ../../build/zefiro_demo/zefiro_demo.egg-info to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo-0.1.0-py3.12.egg-info\n'}
+[9.066032] (zefiro_demo) StdoutLine: {'line': b'running install_scripts\n'}
+[9.096360] (-) TimerEvent: {}
+[9.197104] (-) TimerEvent: {}
+[9.298467] (-) TimerEvent: {}
+[9.399354] (-) TimerEvent: {}
+[9.500456] (-) TimerEvent: {}
+[9.602359] (-) TimerEvent: {}
+[9.703641] (-) TimerEvent: {}
+[9.804932] (-) TimerEvent: {}
+[9.821870] (zefiro_demo) StdoutLine: {'line': b'Installing avoidance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo\n'}
+[9.823914] (zefiro_demo) StdoutLine: {'line': b'Installing fake_front_clearance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo\n'}
+[9.824806] (zefiro_demo) StdoutLine: {'line': b'Installing fake_goal_velocity_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo\n'}
+[9.825810] (zefiro_demo) StdoutLine: {'line': b'Installing logger_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo\n'}
+[9.827876] (zefiro_demo) StdoutLine: {'line': b"writing list of installed files to '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/install.log'\n"}
+[9.905615] (-) TimerEvent: {}
+[10.007605] (-) TimerEvent: {}
+[10.058866] (zefiro_demo) CommandEnded: {'returncode': 0}
+[10.108049] (-) TimerEvent: {}
+[10.170896] (zefiro_demo) JobEnded: {'identifier': 'zefiro_demo', 'rc': 0}
+[10.179398] (-) EventReactorShutdown: {}

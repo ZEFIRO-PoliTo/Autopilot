@@ -1,0 +1,17 @@
+package.xml
+setup.cfg
+setup.py
+../../build/zefiro_demo/zefiro_demo.egg-info/PKG-INFO
+../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt
+../../build/zefiro_demo/zefiro_demo.egg-info/dependency_links.txt
+../../build/zefiro_demo/zefiro_demo.egg-info/entry_points.txt
+../../build/zefiro_demo/zefiro_demo.egg-info/requires.txt
+../../build/zefiro_demo/zefiro_demo.egg-info/top_level.txt
+../../build/zefiro_demo/zefiro_demo.egg-info/zip-safe
+launch/demo_fake_avoidance.launch.py
+resource/zefiro_demo
+zefiro_demo/__init__.py
+zefiro_demo/avoidance_node.py
+zefiro_demo/fake_front_clearance_node.py
+zefiro_demo/fake_goal_velocity_node.py
+zefiro_demo/logger_node.py

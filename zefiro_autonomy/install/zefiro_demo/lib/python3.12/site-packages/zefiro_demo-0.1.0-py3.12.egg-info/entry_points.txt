@@ -1,0 +1,5 @@
+[console_scripts]
+avoidance_node = zefiro_demo.avoidance_node:main
+fake_front_clearance_node = zefiro_demo.fake_front_clearance_node:main
+fake_goal_velocity_node = zefiro_demo.fake_goal_velocity_node:main
+logger_node = zefiro_demo.logger_node:main

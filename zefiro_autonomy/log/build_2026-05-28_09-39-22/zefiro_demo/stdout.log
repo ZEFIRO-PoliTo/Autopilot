@@ -1,0 +1,49 @@
+running egg_info
+creating ../../build/zefiro_demo/zefiro_demo.egg-info
+writing ../../build/zefiro_demo/zefiro_demo.egg-info/PKG-INFO
+writing dependency_links to ../../build/zefiro_demo/zefiro_demo.egg-info/dependency_links.txt
+writing entry points to ../../build/zefiro_demo/zefiro_demo.egg-info/entry_points.txt
+writing requirements to ../../build/zefiro_demo/zefiro_demo.egg-info/requires.txt
+writing top-level names to ../../build/zefiro_demo/zefiro_demo.egg-info/top_level.txt
+writing manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'
+reading manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'
+writing manifest file '../../build/zefiro_demo/zefiro_demo.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo
+copying zefiro_demo/__init__.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo
+copying zefiro_demo/fake_goal_velocity_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo
+copying zefiro_demo/logger_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo
+copying zefiro_demo/fake_front_clearance_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo
+copying zefiro_demo/avoidance_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo
+running install
+running install_lib
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo
+copying /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo/__init__.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo
+copying /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo/fake_goal_velocity_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo
+copying /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo/logger_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo
+copying /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo/fake_front_clearance_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo
+copying /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/build/lib/zefiro_demo/avoidance_node.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo
+byte-compiling /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo/fake_goal_velocity_node.py to fake_goal_velocity_node.cpython-312.pyc
+byte-compiling /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo/logger_node.py to logger_node.cpython-312.pyc
+byte-compiling /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo/fake_front_clearance_node.py to fake_front_clearance_node.cpython-312.pyc
+byte-compiling /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo/avoidance_node.py to avoidance_node.cpython-312.pyc
+running install_data
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/ament_index
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/ament_index/resource_index
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/ament_index/resource_index/packages
+copying resource/zefiro_demo -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/ament_index/resource_index/packages
+copying package.xml -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/zefiro_demo
+creating /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/zefiro_demo/launch
+copying launch/demo_fake_avoidance.launch.py -> /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/share/zefiro_demo/launch
+running install_egg_info
+Copying ../../build/zefiro_demo/zefiro_demo.egg-info to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/python3.12/site-packages/zefiro_demo-0.1.0-py3.12.egg-info
+running install_scripts
+Installing avoidance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+Installing fake_front_clearance_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+Installing fake_goal_velocity_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+Installing logger_node script to /home/evang/projects/zefiro/Autopilot/zefiro_autonomy/install/zefiro_demo/lib/zefiro_demo
+writing list of installed files to '/home/evang/projects/zefiro/Autopilot/zefiro_autonomy/build/zefiro_demo/install.log'
