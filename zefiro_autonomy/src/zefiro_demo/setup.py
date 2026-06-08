@@ -20,6 +20,8 @@ setup(
     maintainer_email='team@zefiro.local',
     description='Minimal ROS 2 demo for the Zefiro autonomy pipeline.',
     license='MIT',
+    tests_require=['pytest'],
+    test_suite='test.test_imports',
     entry_points={
         'console_scripts': [
             'avoidance_node = zefiro_demo.avoidance_node:main',

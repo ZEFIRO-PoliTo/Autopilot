@@ -1,0 +1,13 @@
+services:
+  autonomy:
+    build:
+      context: .
+    image: zefiro-autopilot:jazzy
+    network_mode: host
+    ipc: host
+    stdin_open: true
+    tty: true
+    working_dir: /workspace/autopilot
+    volumes:
+      - .:/workspace/autopilot
+    command: bash

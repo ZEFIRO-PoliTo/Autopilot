@@ -50,8 +50,15 @@ From the repository root:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-colcon build
+colcon build --symlink-install
 source install/setup.bash
+```
+
+Docker setup is available from the repository root:
+
+```bash
+docker compose build
+docker compose run --rm autonomy
 ```
 
 ## Run
@@ -87,3 +94,5 @@ ros2 topic echo /zefiro/safety/state
 - Replace logger-only output with a PX4 Offboard adapter.
 - Later introduce custom messages.
 - Later split into multiple packages.
+
+For the first serious team work block, use [docs/team_workplan.md](docs/team_workplan.md) and [docs/github_issues.md](docs/github_issues.md).
