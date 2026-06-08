@@ -1,34 +1,53 @@
+## Target Effort
+
+15 hours.
+
 ## Goal
 
-Make the repo buildable by every teammate using either native ROS 2 Jazzy or Docker.
+Make the baseline workflow reproducible and define exactly what "ready for September simulation" means.
 
 ## Context
 
-The repo currently contains a minimal ROS 2 demo. Before splitting work, every contributor needs a repeatable setup and a known-good command sequence.
+This task supports all other tasks. It should not wait for camera, PX4, package split, or simulation work.
+
+Reference: `zefiro_autonomy/docs/september_hardware_simulation_plan.md`, Task T0.
 
 ## Tasks
 
-- [ ] Test native setup on Ubuntu 24.04 with ROS 2 Jazzy.
-- [ ] Test Docker setup from the repository root.
-- [ ] Document build, run, and test commands.
-- [ ] Add troubleshooting notes for missing ROS setup, stale build folders, and missing topics.
+- [ ] Run native build/test and record exact commands.
+- [ ] Validate Docker instructions or document why Docker could not be validated.
+- [ ] Create `zefiro_autonomy/docs/simulation_readiness_checklist.md`.
+- [ ] Add troubleshooting notes for ROS 2 sourcing, stale `build/install/log`, Docker, and missing topics.
+- [ ] Ask another teammate to run one checklist section and record feedback.
+
+## Specification Fields
+
+- Machine used:
+- ROS 2 version:
+- Docker available: yes/no
+- Commands verified:
+- Known failures:
 
 ## Expected Outputs
 
-- Updated setup documentation.
-- Verified Docker workflow.
+- Simulation readiness checklist.
 - Verified native workflow.
-- A short demo checklist.
+- Docker status clearly documented.
+- Troubleshooting notes.
 
 ## Milestones
 
-- 0-4h: run current demo and record exact commands.
-- 4-10h: validate Docker build/run workflow.
-- 10-18h: improve docs and troubleshooting.
-- 18-30h: validate with at least one teammate or clean checkout.
+- 0-4h: run native build/test and record exact commands.
+- 4-8h: validate Docker instructions or document the gap.
+- 8-12h: write the readiness checklist.
+- 12-15h: non-owner validation pass.
 
-## Definition of Done
+## No Single Point Of Failure
 
-- [ ] `colcon build --symlink-install` succeeds.
-- [ ] `ros2 launch zefiro_demo demo_fake_avoidance.launch.py` runs.
-- [ ] A new teammate can reproduce the demo from docs only.
+If Docker is not available, complete the native workflow and record the Docker gap. The checklist must be readable enough for another person to continue validation.
+
+## Definition Of Done
+
+- [ ] Checklist exists and includes exact commands.
+- [ ] Native build/test has been verified.
+- [ ] One non-owner has enough information to reproduce the flow.

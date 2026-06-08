@@ -1,6 +1,6 @@
 # Team Workplan
 
-This plan assumes 5 or 6 contributors and a first serious development block of at least 30 hours per person. The goal is to move from the current fake ROS 2 demo to a maintainable autonomy skeleton with clear input, safety, output, simulation, and integration boundaries.
+This plan is the larger work breakdown for the autonomy stack. For the first assignable 15-20 hour tasks aimed at starting simulation with hardware in September, use [september_hardware_simulation_plan.md](september_hardware_simulation_plan.md).
 
 ## Coordination Rules
 

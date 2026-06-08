@@ -59,6 +59,7 @@ ros2 launch zefiro_demo demo_fake_avoidance.launch.py
 
 - [Architecture](zefiro_autonomy/docs/architecture.md)
 - [Team workplan](zefiro_autonomy/docs/team_workplan.md)
+- [September hardware simulation readiness plan](zefiro_autonomy/docs/september_hardware_simulation_plan.md)
 - [GitHub issues to create](zefiro_autonomy/docs/github_issues.md)
 - [ROS 2 Jazzy install guide](zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md)
 
