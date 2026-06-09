@@ -33,18 +33,18 @@ The stack is ready for hardware-facing simulation work when:
 
 ## Dependency Map
 
-| Task | Can start now | Depends on |
-| --- | --- | --- |
-| T0 Setup and readiness checklist | Yes | Current repo |
-| T1 Package boundaries and bringup | Yes | Current repo |
-| T2 Synthetic perception node | Yes | Current perception topic contract |
-| T3 Camera contract and replay path | Yes | Current perception topic contract |
-| T4 Avoidance core and safety tests | Yes | Current avoidance behavior |
-| T5 PX4 output mock and communication contract | Yes | Current safe setpoint topic contract |
-| T6 Simulation scenario harness | Partly | Initial T2/T4/T5 interfaces |
-| T7 Observability and rosbag workflow | Yes | Current topic list |
-| T8 CI and contributor workflow | Yes | Current build/test commands |
-| T9 Integration rehearsal | Later | T1/T2/T4/T5/T6/T7 outputs |
+| Task  | Depends on |
+| --- | --- |
+| T0 Setup and readiness checklist  | Current repo |
+| T1 Package boundaries and bringup  | Current repo |
+| T2 Synthetic perception node |  Current perception topic contract |
+| T3 Camera contract and replay path | Current perception topic contract, camera model (Orbbec Gemini 336L) |
+| T4 Avoidance core and safety tests | Current avoidance behavior |
+| T5 PX4 output mock and communication contract | Current safe setpoint topic contract |
+| T6 Simulation scenario harness | Initial T2/T4/T5 interfaces |
+| T7 Observability and rosbag workflow | Current topic list |
+| T8 CI and contributor workflow | Current build/test commands |
+| T9 Integration rehearsal | T1/T2/T4/T5/T6/T7 outputs |
 
 ## T0: Setup and Readiness Checklist
 
@@ -193,9 +193,12 @@ Definition of done:
 
 Goal: define how real or recorded camera data enters the autonomy stack.
 
+Camera model: **Orbbec Gemini 336L**.
+
 Inputs:
 
-- Expected camera model, if known.
+- Orbbec Gemini 336L depth camera.
+- `orbbec_camera` ROS 2 driver (official Orbbec package, available on GitHub).
 - ROS 2 image/depth conventions.
 - Perception output contract from T2.
 
@@ -205,6 +208,24 @@ Expected outputs:
 - Expected camera topics, frame ids, message types, encoding, rate, and calibration assumptions.
 - Rosbag record/replay commands.
 - Fallback path using synthetic or recorded data.
+
+Known driver topics (Orbbec ROS 2 driver defaults):
+
+```text
+/camera/depth/image_raw          — sensor_msgs/msg/Image, encoding 16UC1 (millimetres)
+/camera/depth/camera_info        — sensor_msgs/msg/CameraInfo
+/camera/color/image_raw          — sensor_msgs/msg/Image (if colour stream needed)
+/camera/depth/points             — sensor_msgs/msg/PointCloud2 (optional)
+```
+
+Notes on the Gemini 336L:
+
+- Reliable depth range: approximately 0.3 m to 4.0 m in typical indoor/outdoor conditions.
+- Depth encoding: `16UC1` (millimetres). Convert to metres before publishing `/zefiro/perception/front_clearance`.
+- Recommended perception approach for forward clearance: extract the median or minimum value from a central ROI of the depth image rather than using the full PointCloud2. This reduces noise sensitivity and computational cost.
+- Frame id: `camera_depth_optical_frame` (driver default).
+- Typical publish rate: up to 30 Hz.
+- Calibration: the driver exposes `camera_info`; intrinsics are loaded from the device at startup.
 
 Task example:
 
@@ -218,24 +239,30 @@ Example expected output:
 
 ```text
 Camera input contract:
-- Topic: /camera/depth/image_rect_raw
+- Device: Orbbec Gemini 336L
+- Driver: orbbec_camera (ROS 2)
+- Topic: /camera/depth/image_raw
 - Type: sensor_msgs/msg/Image
-- Encoding: 32FC1 or 16UC1
+- Encoding: 16UC1 (millimetres)
 - Frame: camera_depth_optical_frame
+- Rate: 30 Hz
+- ROI: central region of the depth frame, dimensions TBD
 - Output topic after perception: /zefiro/perception/front_clearance
 ```
 
 - Replay commands like:
 
 ```bash
-ros2 bag record /camera/depth/image_rect_raw /camera/camera_info
+ros2 bag record /camera/depth/image_raw /camera/depth/camera_info
 ros2 bag play camera_depth_sample
 ```
 
 Definition of done:
 
-- Camera assumptions are explicit.
+- Camera model, driver, topic names, encoding, and rate are documented explicitly.
+- A ROI strategy for clearance extraction is described or prototyped.
 - Perception work can continue with replayed or synthetic data when hardware is unavailable.
+- Driver installation steps or a reference to the official Orbbec ROS 2 repository are included.
 
 ## T4: Avoidance Core and Safety Tests
 
@@ -303,6 +330,8 @@ Expected outputs:
 - Mapping from safe Zefiro setpoints to future PX4 Offboard messages/topics.
 - Conditions required before real output can be enabled.
 
+Note: the communication contract (micro XRCE-DDS bridge, Offboard message format, arm/disarm flow, heartbeat rate, failsafe assumptions) requires PX4 SITL to be validated. Until the workstation and SITL environment are available, this document should be written as a draft and explicitly marked unverified. The mock adapter node (logging only, no real PX4 publishing) can be implemented independently of SITL.
+
 Task example:
 
 Example input:
@@ -328,7 +357,7 @@ Definition of done:
 
 - The mock adapter receives safe velocity setpoints.
 - Real PX4 publishing is not enabled by default.
-- Message, rate, frame, and failsafe assumptions are documented.
+- Message, rate, frame, and failsafe assumptions are documented, with unverified sections explicitly flagged for SITL review.
 
 ## T6: Simulation Scenario Harness
 
