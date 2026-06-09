@@ -24,12 +24,13 @@ Relevant package, node, topic, document, or design constraint.
 
 - Code, document, launch file, test, or design note to produce.
 
-## Milestones
+## Example Input
 
-- 0-4h:
-- 4-12h:
-- 12-20h:
-- 20-30h:
+Concrete input, command, message, topic value, or file used to verify the task.
+
+## Example Expected Output
+
+Expected terminal output, ROS topic output, log line, generated file, or state transition.
 
 ## Definition of Done
 

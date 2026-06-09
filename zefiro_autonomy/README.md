@@ -95,4 +95,4 @@ ros2 topic echo /zefiro/safety/state
 - Later introduce custom messages.
 - Later split into multiple packages.
 
-For the first serious team work block, use [docs/team_workplan.md](docs/team_workplan.md) and [docs/github_issues.md](docs/github_issues.md).
+For the development task plan, use [docs/tasks_plan.md](docs/tasks_plan.md).

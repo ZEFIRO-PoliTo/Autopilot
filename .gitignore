@@ -12,3 +12,7 @@ __pycache__/
 .vscode/
 .idea/
 .DS_Store
+
+# Local task administration helpers
+scripts/create_github_issues.sh
+.github/issue-bodies/

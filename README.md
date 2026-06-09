@@ -1,6 +1,6 @@
 # Autopilot
 
-Autopilot repository for the Zefiro autonomy stack. The current codebase contains a minimal ROS 2 Jazzy demo that proves the first safety boundary:
+The current codebase contains a minimal ROS 2 Jazzy demo that proves the first safety boundary:
 
 ```text
 fake input -> avoidance -> safe velocity -> logger
@@ -14,8 +14,7 @@ The next development block should extend this into separate input, avoidance, ou
 zefiro_autonomy/
   docs/
     architecture.md
-    team_workplan.md
-    github_issues.md
+    tasks_plan.md
   src/
     zefiro_demo/
 ```
@@ -55,27 +54,10 @@ source install/setup.bash
 ros2 launch zefiro_demo demo_fake_avoidance.launch.py
 ```
 
-## Team Planning
+## Project Docs
 
 - [Architecture](zefiro_autonomy/docs/architecture.md)
-- [Team workplan](zefiro_autonomy/docs/team_workplan.md)
-- [September hardware simulation readiness plan](zefiro_autonomy/docs/september_hardware_simulation_plan.md)
-- [GitHub issues to create](zefiro_autonomy/docs/github_issues.md)
+- [Development tasks](zefiro_autonomy/docs/tasks_plan.md)
 - [ROS 2 Jazzy install guide](zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md)
 
 The repository also includes a minimal GitHub Actions workflow in `.github/workflows/ci.yml`.
-
-After installing and authenticating the GitHub CLI, create the first issue set with:
-
-```bash
-scripts/create_github_issues.sh
-```
-
-Suggested first ownership:
-
-- Input and perception: camera/depth input, synthetic depth, first perception node.
-- Output: PX4 boundary, micro XRCE-DDS / ROS 2 communication, output mock.
-- Avoidance: safety logic, tests, velocity limits.
-- Bringup: package split, launch files, topic contracts.
-- Test and CI: Docker/native setup, smoke tests, GitHub Actions.
-- Optional sixth person: logging, demo docs, troubleshooting.
