@@ -18,6 +18,7 @@ The current stable topic contracts are:
 - Real PX4 output must stay disabled by default until SITL/HITL behavior is documented and reviewed.
 - Each task must produce a repository artifact: code, test, launch file, documentation, recorded data, or checklist.
 - Each pull request must include what was tested locally.
+- Branch, pull request, review, and merge rules are defined in [contribution_workflow.md](contribution_workflow.md).
 
 ## Readiness Criteria
 
