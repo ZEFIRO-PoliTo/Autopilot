@@ -14,7 +14,7 @@ The next development block should extend this into separate input, avoidance, ou
 zefiro_autonomy/
   docs/
     architecture.md
-    tasks_plan.md
+    task_plan.md
   src/
     zefiro_demo/
 ```
@@ -57,7 +57,7 @@ ros2 launch zefiro_demo demo_fake_avoidance.launch.py
 ## Project Docs
 
 - [Architecture](zefiro_autonomy/docs/architecture.md)
-- [Development tasks](zefiro_autonomy/docs/tasks_plan.md)
+- [Development tasks](zefiro_autonomy/docs/task_plan.md)
 - [Contribution workflow](zefiro_autonomy/docs/contribution_workflow.md)
 - [ROS 2 Jazzy install guide](zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md)
 

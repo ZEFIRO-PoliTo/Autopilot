@@ -95,4 +95,4 @@ ros2 topic echo /zefiro/safety/state
 - Later introduce custom messages.
 - Later split into multiple packages.
 
-For the development task plan, use [docs/tasks_plan.md](docs/tasks_plan.md).
+For the development task plan, use [docs/task_plan.md](docs/task_plan.md).

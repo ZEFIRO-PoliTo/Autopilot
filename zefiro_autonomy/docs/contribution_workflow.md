@@ -4,7 +4,7 @@ This document defines how tasks should be handled in the Zefiro Autopilot reposi
 
 ## Task Ownership
 
-- Work should start from a task in [tasks_plan.md](tasks_plan.md) or from a GitHub issue derived from that plan.
+- Work should start from a task in [task_plan.md](task_plan.md) or from a GitHub issue derived from that plan.
 - Each task should have one primary owner.
 - A task owner is responsible for documenting assumptions, expected inputs, expected outputs, and local verification.
 - If a task changes a topic name, message type, launch name, or package boundary, the change must be discussed before implementation.
