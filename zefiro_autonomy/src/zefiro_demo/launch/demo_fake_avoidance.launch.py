@@ -1,31 +1,21 @@
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    default_config = PathJoinSubstitution([
+        FindPackageShare('zefiro_demo'), 'config', 'demo.yaml'])
+    nodes = [
+        Node(package='zefiro_demo', executable=name, name=name, output='screen',
+             parameters=[LaunchConfiguration('config')] if name == 'avoidance_node' else [])
+        for name in ('fake_front_clearance_node', 'fake_goal_velocity_node',
+                     'avoidance_node', 'logger_node')
+    ]
     return LaunchDescription([
-        Node(
-            package='zefiro_demo',
-            executable='fake_front_clearance_node',
-            name='fake_front_clearance_node',
-            output='screen',
-        ),
-        Node(
-            package='zefiro_demo',
-            executable='fake_goal_velocity_node',
-            name='fake_goal_velocity_node',
-            output='screen',
-        ),
-        Node(
-            package='zefiro_demo',
-            executable='avoidance_node',
-            name='avoidance_node',
-            output='screen',
-        ),
-        Node(
-            package='zefiro_demo',
-            executable='logger_node',
-            name='logger_node',
-            output='screen',
-        ),
+        DeclareLaunchArgument('config', default_value=default_config,
+                              description='YAML dei parametri di avoidance'),
+        *nodes,
     ])

@@ -1,148 +1,62 @@
-# Contribution Workflow
+# Lavorare insieme senza sovrapporsi
 
-This document defines how tasks should be handled in the Zefiro Autopilot repository.
+Ogni attività ha un owner e un reviewer nel [piano](task_plan.md). Prima di scrivere codice riportate nella issue: input, output atteso, file coinvolti e una prova di accettazione.
 
-## Task Ownership
+## Branch e PR
 
-- Work should start from a task in [task_plan.md](task_plan.md) or from a GitHub issue derived from that plan.
-- Each task should have one primary owner.
-- A task owner is responsible for documenting assumptions, expected inputs, expected outputs, and local verification.
-- If a task changes a topic name, message type, launch name, or package boundary, the change must be discussed before implementation.
+Dalla radice della repo, con working tree pulito:
 
-## Branches
+```bash
+git switch main
+git pull --ff-only
+git switch -c task/p1-goal-parameter
+# Modifica piccola, poi:
+bash scripts/check.sh
+python3 scripts/smoke_demo.py
+git status --short
+git add percorso/del/file.py percorso/del/test.py
+git commit -m "Add configurable mission velocity"
+git push -u origin task/p1-goal-parameter
+```
 
-Create one branch per task or small feature.
+Sostituite nome del branch e percorsi con quelli della vostra attività. Aprite una PR verso `main`; il template chiede comportamento, prova riproducibile e limiti. Evitate `git add .` finché non sapete spiegare ogni file nella lista.
 
-Branch naming:
+La prima PR può essere una correzione della guida scoperta durante l'esercizio, purché descriva il comando fallito e quello verificato.
+
+## Comandi condivisi
+
+- `bash scripts/build.sh`: compila dai soli sorgenti.
+- `bash scripts/check.sh`: build, test, lettura dei risultati; fallisce se fallisce un test.
+- `python3 scripts/smoke_demo.py`: avvia il launch per un intero ciclo; richiede prima la build e il YAML standard.
+- `bash scripts/doctor.sh`: mostra ambiente, dipendenze e pacchetto trovato.
+
+Chiudete la demo prima dei test: publisher concorrenti nello stesso dominio alterano i risultati. La CI usa un ambiente Jazzy e verifica anche il percorso Docker. Non vengono eseguiti controlli su hardware.
+
+## Review e merge
+
+Il reviewer deve poter rifare l'esempio senza istruzioni private. Controlla che i nomi dei topic siano compatibili, i parametri invalidi siano rifiutati e le nuove dipendenze siano dichiarate in `package.xml`.
+
+Una approvazione e CI verde prima del merge. Per logica di arresto, contratti e output chiedete anche la review del referente dell'area. P5 coordina le modifiche condivise a packaging e launch e integra una PR alla volta.
+
+Sono regole del team; **non è stato verificato né configurato** che GitHub le imponga. Il maintainer può impostare branch protection e controlli richiesti dopo il primo run CI.
+
+Dopo un merge, aggiornate `main` e riallineate i branch aperti. Se c'è un conflitto su un file condiviso risolvetelo con il suo owner, poi rieseguite i test.
+
+## Cosa resta fuori da Git
+
+`build/`, `install/`, `log/`, cache Python/pytest e registrazioni in `bags/`. Non modificare copie di codice dentro build/install: i sorgenti sono in `zefiro_autonomy/src/`.
+
+## Quando qualcosa blocca il lavoro
+
+Dopo un tentativo ragionato, condividete nella issue:
 
 ```text
-task/<task-id>-short-description
+Ambiente: Ubuntu/Docker, versione ROS, dominio
+Branch e commit:
+Comando esatto:
+Risultato atteso:
+Errore osservato:
+Tentativi già fatti:
 ```
 
-Examples:
-
-```bash
-git checkout -b task/t2-synthetic-perception
-git checkout -b task/t4-avoidance-tests
-git checkout -b task/t5-px4-output-mock
-```
-
-Keep branches focused. A branch for `T2` should not also refactor PX4 output or change unrelated documentation.
-
-## Local Work
-
-Before committing, run the checks that apply to the change.
-
-Baseline commands:
-
-```bash
-source /opt/ros/jazzy/setup.bash
-colcon build --symlink-install
-colcon test --event-handlers console_direct+
-```
-
-If the task adds or changes a launch file, also run that launch file and record the observed topics or logs.
-
-Useful inspection commands:
-
-```bash
-ros2 topic list
-ros2 topic echo /zefiro/perception/front_clearance
-ros2 topic echo /zefiro/setpoint/velocity
-ros2 topic echo /zefiro/safety/state
-```
-
-## Commits
-
-Use clear commit messages that describe the actual change.
-
-Examples:
-
-```text
-Add synthetic clearance publisher
-Extract avoidance decision logic
-Document PX4 micro XRCE-DDS output contract
-```
-
-Avoid mixing unrelated changes in the same commit. Documentation updates for the same task are fine in the same branch.
-
-## Push And Pull Request
-
-Push the feature branch:
-
-```bash
-git push origin task/t2-synthetic-perception
-```
-
-Open a pull request into `main`.
-
-The pull request description must include:
-
-- Task id, for example `T2`.
-- What changed.
-- Example input used for verification.
-- Expected output or observed output.
-- Commands run locally.
-- Any known limitations or follow-up work.
-
-Pull request description template:
-
-```text
-Task:
-
-Summary:
-
-Example input:
-
-Expected or observed output:
-
-Local verification:
-- [ ] colcon build --symlink-install
-- [ ] colcon test --event-handlers console_direct+
-- [ ] Relevant launch command, if applicable:
-
-Notes / limitations:
-```
-
-## Review
-
-Every pull request should be reviewed before merging.
-
-Review should check:
-
-- The change matches the task scope.
-- Topic names and message types are preserved or the change is clearly justified.
-- Build and test commands are reported.
-- The task has a concrete example input and expected output.
-- Documentation was updated when behavior, launch files, or contracts changed.
-- Real PX4 output is not enabled by default.
-
-At least one reviewer should approve the pull request before merge. For changes touching PX4 output, safety behavior, or topic contracts, wait for review from the relevant task owner as well.
-
-## Merge
-
-Merge only after:
-
-- Required review is complete.
-- CI passes, if CI is enabled for the branch.
-- Local verification is documented in the pull request.
-- Open review comments are resolved.
-
-Prefer squash merge for small task branches unless the branch history is intentionally structured.
-
-After merge, delete the remote feature branch to keep the repository clean.
-
-## Handling Blockers
-
-If a task is blocked, document the blocker in the issue or pull request.
-
-A useful blocker report includes:
-
-- What command or scenario failed.
-- Expected output.
-- Actual output.
-- Relevant logs or topic output.
-- What dependency is missing.
-- Suggested next step.
-
-Do not keep blockers only in chat messages. They should be visible in GitHub or in the repository documentation.
+Per i problemi comuni vedere [troubleshooting.md](troubleshooting.md).

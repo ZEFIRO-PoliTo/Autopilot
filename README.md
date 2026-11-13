@@ -1,64 +1,73 @@
-# Autopilot
+# Zefiro Autopilot — partire con ROS 2
 
-The current codebase contains a minimal ROS 2 Jazzy demo that proves the first safety boundary:
-
-```text
-fake input -> avoidance -> safe velocity -> logger
-```
-
-The next development block should extend this into separate input, avoidance, output, bringup, and test responsibilities.
-
-## Repository Layout
+Questa repo contiene una demo didattica **ROS 2 Jazzy / Python** per imparare a costruire una pipeline di autonomia. Funziona sul portatile, con dati finti e un logger: non comanda un drone.
 
 ```text
-zefiro_autonomy/
-  docs/
-    architecture.md
-    task_plan.md
-  src/
-    zefiro_demo/
+distanza frontale finta ─┐
+                        ├─ avoidance ─ velocità filtrata + stato ─ logger
+velocità desiderata ─────┘
 ```
 
-## Quick Start With Docker
+## Parti da qui
 
-Build the development image:
+1. [Primo giorno: concetti, avvio ed esercizi](zefiro_autonomy/docs/primi_passi.md).
+2. [Piano per cinque persone](zefiro_autonomy/docs/task_plan.md): prime PR, file, reviewer e risultati attesi.
+3. [Contratti e architettura](zefiro_autonomy/docs/architecture.md).
+4. [Come contribuire](zefiro_autonomy/docs/contribution_workflow.md).
+
+## Avvio su Ubuntu 24.04
+
+Installa ROS seguendo [la guida](zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md). Poi, **dalla radice di questa repo**:
+
+```bash
+bash scripts/doctor.sh
+bash scripts/check.sh
+bash scripts/demo.sh
+```
+
+La demo ripete un ciclo di 24 secondi: `CLEAR → SLOWDOWN → STOP → INVALID_INPUT`.
+Chiudila con Ctrl+C. Per verificarla automaticamente:
+
+```bash
+python3 scripts/smoke_demo.py
+```
+
+Il test dura circa 27 secondi. Build, installazione e log vengono prodotti solo nelle cartelle `build/`, `install/`, `log/` della radice e non vanno in Git.
+
+## Alternativa Docker
+
+Richiede Docker Engine e Compose v2. Il percorso Docker viene controllato dalla CI; vedi i limiti della verifica locale nell'[audit](zefiro_autonomy/docs/audit.md).
 
 ```bash
 docker compose build
+docker compose run --rm --name zefiro-dev autonomy
+# Dentro il container, dalla cartella /workspace/autopilot:
+bash scripts/check.sh
+bash scripts/demo.sh
 ```
 
-Start a shell inside the ROS 2 Jazzy environment:
+Per un secondo terminale nello **stesso container**:
 
 ```bash
-docker compose run --rm autonomy
+docker exec -it zefiro-dev bash
+source scripts/ros_env.sh
+source install/local_setup.bash
+ros2 topic echo /zefiro/safety/state
 ```
 
-Inside the container:
+I sorgenti sono condivisi con l'editor dell'host; build/install/log usano volumi Docker separati. Non lanciare un altro `compose run` per osservare la demo: la discovery è limitata al singolo container.
 
-```bash
-colcon build --symlink-install
-source install/setup.bash
-ros2 launch zefiro_demo demo_fake_avoidance.launch.py
-```
+## Mappa della repo
 
-## Quick Start Natively
+| Percorso | Contenuto |
+| --- | --- |
+| `zefiro_autonomy/src/zefiro_demo/zefiro_demo/` | Nodi Python e logica di avoidance |
+| `zefiro_autonomy/src/zefiro_demo/config/demo.yaml` | Parametri della demo |
+| `zefiro_autonomy/src/zefiro_demo/launch/` | Avvio dei quattro nodi |
+| `zefiro_autonomy/src/zefiro_demo/test/` | Test della logica e del collegamento ROS |
+| `scripts/` | Diagnostica, build, test e demo |
+| `zefiro_autonomy/docs/` | Guide e piano di lavoro |
 
-Install ROS 2 Jazzy on Ubuntu 24.04 using [zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md](zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md).
+Altre guide: [problemi frequenti](zefiro_autonomy/docs/troubleshooting.md), [registrazione e replay](zefiro_autonomy/docs/observability.md), [audit e verifiche](zefiro_autonomy/docs/audit.md).
 
-Then from the repository root:
-
-```bash
-source /opt/ros/jazzy/setup.bash
-colcon build --symlink-install
-source install/setup.bash
-ros2 launch zefiro_demo demo_fake_avoidance.launch.py
-```
-
-## Project Docs
-
-- [Architecture](zefiro_autonomy/docs/architecture.md)
-- [Development tasks](zefiro_autonomy/docs/task_plan.md)
-- [Contribution workflow](zefiro_autonomy/docs/contribution_workflow.md)
-- [ROS 2 Jazzy install guide](zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md)
-
-The repository also includes a minimal GitHub Actions workflow in `.github/workflows/ci.yml`.
+La directory del progetto si chiama **Autopilot** con A maiuscola. Il vecchio percorso locale `zefiro/autopilot` è un'altra cartella e non è questa repo.

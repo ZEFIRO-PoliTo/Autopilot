@@ -1,39 +1,28 @@
 ---
-name: Engineering task
-about: Track a Zefiro Autopilot development task
-title: "[Area] Short task title"
+name: Attività del team
+about: Una piccola attività ROS con input, output e prova riproducibile
+title: "[P1–P5] Descrizione breve"
 labels: ""
 assignees: ""
 ---
 
-## Goal
+## Obiettivo
+Comportamento da ottenere:
+Persona/area del piano e reviewer:
 
-What should be true when this task is finished?
+## File coinvolti e dipendenze
+File da modificare:
+Dipendenze da altre attività (oppure nessuna):
 
-## Context
+## Esempio verificabile
+Input e comando:
+Output atteso:
 
-Relevant package, node, topic, document, or design constraint.
+## Consegna
+- [ ] Codice o documento richiesto
+- [ ] Test pertinente o prova documentata
+- [ ] `bash scripts/check.sh` passa
+- [ ] Smoke della demo se cambia il runtime
+- [ ] Un'altra persona riproduce la prova
 
-## Tasks
-
-- [ ] First concrete step
-- [ ] Second concrete step
-- [ ] Documentation or test update
-
-## Expected Outputs
-
-- Code, document, launch file, test, or design note to produce.
-
-## Example Input
-
-Concrete input, command, message, topic value, or file used to verify the task.
-
-## Example Expected Output
-
-Expected terminal output, ROS topic output, log line, generated file, or state transition.
-
-## Definition of Done
-
-- [ ] Build/test command passes locally.
-- [ ] Relevant docs are updated.
-- [ ] PR explains what was tested.
+## Blocchi e limiti

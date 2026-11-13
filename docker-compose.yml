@@ -3,11 +3,20 @@ services:
     build:
       context: .
     image: zefiro-autopilot:jazzy
-    network_mode: host
-    ipc: host
     stdin_open: true
     tty: true
     working_dir: /workspace/autopilot
+    environment:
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-41}"
+      ROS_AUTOMATIC_DISCOVERY_RANGE: LOCALHOST
     volumes:
       - .:/workspace/autopilot
+      - ros_build:/workspace/autopilot/build
+      - ros_install:/workspace/autopilot/install
+      - ros_log:/workspace/autopilot/log
     command: bash
+
+volumes:
+  ros_build:
+  ros_install:
+  ros_log:

@@ -1,88 +1,74 @@
-# Architecture
+# Architettura e contratti della demo
 
-## Current Demo Architecture
+Un pacchetto Python, `zefiro_demo`, con quattro nodi. La logica numerica è in `avoidance_core.py`; `avoidance_node.py` gestisce messaggi, timer e freschezza degli input.
 
-This repository is intentionally a toy ROS 2 pipeline with one Python package and standard ROS 2 messages only.
-
-```text
-fake_front_clearance_node
-fake_goal_velocity_node
-        -> avoidance_node
-        -> logger_node
+```mermaid
+flowchart LR
+    S[fake_front_clearance_node] -->|front_clearance| A[avoidance_node]
+    G[fake_goal_velocity_node] -->|goal_velocity| A
+    A -->|setpoint/velocity| L[logger_node]
+    A -->|safety/state| L
+    S --> L
+    G --> L
 ```
 
-## Demo Idea
+## Topic
 
-The demo shows the autonomy boundary between "desired motion" and "safe motion".
+Tutti i nomi iniziano con `/zefiro/`.
 
-The mission input says: move forward at `1.0 m/s`.
+| Nome completo | Tipo | Produttore → consumatori | Contratto |
+| --- | --- | --- | --- |
+| `/zefiro/perception/front_clearance` | `std_msgs/msg/Float32` | sensore finto → avoidance, logger | Metri; negativo, NaN e infinito invalidi; 10 Hz nella demo |
+| `/zefiro/mission/goal_velocity` | `geometry_msgs/msg/TwistStamped` | missione finta → avoidance, logger | m/s; frame esattamente `base_link`; x ≥ 0 finito; altri cinque componenti zero; 20 Hz |
+| `/zefiro/setpoint/velocity` | `geometry_msgs/msg/TwistStamped` | avoidance → logger | x filtrato; altri componenti zero; frame `base_link`; stamp al momento della pubblicazione; 20 Hz di default |
+| `/zefiro/safety/state` | `std_msgs/msg/String` | avoidance → logger | Stato della decisione, pubblicato a ogni controllo |
 
-The perception input says: this is how much free space exists in front of the vehicle.
+QoS attuale: reliable, volatile; avoidance mantiene solo l'ultimo campione in coda (depth 1). Le sorgenti finte e il logger usano depth 10. Un futuro driver sensore best-effort richiederà una scelta QoS esplicita e test di compatibilità.
 
-The avoidance node combines those two inputs. If the path is clear, it passes the mission velocity through. If an obstacle is close, it slows down or stops. If the perception input is invalid or stale, it stops.
+## Decisione: ordine dei controlli
 
-The logger is intentionally used instead of PX4, Gazebo, or hardware so the team can validate the software idea on a laptop.
+1. Sensore mai ricevuto, troppo vecchio o età invalida → `SENSOR_TIMEOUT`, zero.
+2. Distanza negativa/non finita → `INVALID_INPUT`, zero.
+3. Goal mai ricevuto, troppo vecchio o età invalida → `GOAL_TIMEOUT`, zero.
+4. Goal negativo/non finito, frame diverso o altri assi non zero → `INVALID_INPUT`, zero.
+5. Distanza ≤ stop → `STOP`, zero.
+6. Tra stop e slowdown → `SLOWDOWN`, velocità ridotta linearmente.
+7. Distanza ≥ slowdown → `CLEAR`, velocità richiesta limitata.
 
-## Topic Contracts
-
-`/zefiro/perception/front_clearance`
-
-- Type: `std_msgs/msg/Float32`
-- Publisher: `fake_front_clearance_node`
-- Subscriber: `avoidance_node`, `logger_node`
-- Meaning: front free distance in meters
-- Demo values: `5.0`, `2.0`, `0.7`, `-1.0`
-- Why: this is the smallest possible placeholder for future depth-camera perception
-
-`/zefiro/mission/goal_velocity`
-
-- Type: `geometry_msgs/msg/TwistStamped`
-- Publisher: `fake_goal_velocity_node`
-- Subscriber: `avoidance_node`, `logger_node`
-- Meaning: desired velocity before safety correction
-- Demo value: `linear.x = 1.0`
-- Why: this represents what a future mission layer, planner, or operator command would request
-
-`/zefiro/setpoint/velocity`
-
-- Type: `geometry_msgs/msg/TwistStamped`
-- Publisher: `avoidance_node`
-- Subscriber: `logger_node`
-- Meaning: safe velocity command after avoidance
-- Why: this is the output that could later feed a PX4 Offboard adapter
-
-`/zefiro/safety/state`
-
-- Type: `std_msgs/msg/String`
-- Publisher: `avoidance_node`
-- Subscriber: `logger_node`
-- Meaning: compact explanation of the avoidance decision
-- Values: `CLEAR`, `SLOWDOWN`, `STOP`, `INVALID_INPUT`, `SENSOR_TIMEOUT`
-- Why: this makes the safety behavior visible during testing and demos
-
-## Current Nodes
-
-The fake clearance node publishes `/zefiro/perception/front_clearance` as a `std_msgs/msg/Float32`.
-
-The fake goal velocity node publishes `/zefiro/mission/goal_velocity` as a `geometry_msgs/msg/TwistStamped`.
-
-The avoidance node subscribes to both inputs and publishes:
-
-- `/zefiro/setpoint/velocity` as a `geometry_msgs/msg/TwistStamped`
-- `/zefiro/safety/state` as a `std_msgs/msg/String`
-
-The logger subscribes to all demo topics and prints one compact status line per second.
-
-## Future Architecture
-
-The same idea can later be extended into a real vehicle pipeline:
+La saturazione viene applicata **prima** del rallentamento:
 
 ```text
-camera/depth
-        -> perception/front_clearance
-        -> avoidance
-        -> PX4 offboard adapter
-        -> PX4
+limited = min(goal_vx, max_velocity_mps)
+scale = (clearance - stop_distance_m) / (slowdown_distance_m - stop_distance_m)
+cmd_vx = limited * scale
 ```
 
-In that future version, depth-camera perception would replace the fake clearance node, and a PX4 Offboard adapter would replace the logger-only output path. Custom messages and package splitting should wait until the minimal demo has been validated by the team.
+Esempi con default: 5 m / goal 1 → 1; 2 m / goal 1 → 0.5; 2 m / goal 100 → 0.75; 0.7 m → 0. Il comando non diventa negativo.
+
+## Parametri di avvio
+
+File: `src/zefiro_demo/config/demo.yaml` (relativo a `zefiro_autonomy/`).
+
+| Parametro | Default | Vincolo |
+| --- | --- | --- |
+| `stop_distance_m` | 1.0 | ≥ 0 e minore di slowdown |
+| `slowdown_distance_m` | 3.0 | maggiore di stop |
+| `sensor_timeout_s` | 0.5 | positivo |
+| `goal_timeout_s` | 0.5 | positivo |
+| `max_velocity_mps` | 1.5 | positivo |
+| `control_rate_hz` | 20.0 | positivo |
+
+Tutti devono essere finiti e nel YAML vanno scritti come numeri decimali. Parametri invalidi impediscono l'avvio; quelli di avoidance sono read-only durante l'esecuzione. Modificare il YAML e rilanciare.
+
+I watchdog usano il tempo monotono locale di ricezione e un timer steady: continuano anche se `use_sim_time` è fermo. Il timeout scatta quando l'età supera 0.5 s; il successivo ciclo di controllo aggiunge nominalmente fino a 0.05 s, oltre al ritardo dello scheduler. Non è una garanzia real-time.
+
+## Limiti espliciti
+
+- È una demo 1D, senza percezione geometrica, frenata dinamica, accelerazione limitata o modello del drone.
+- La freschezza è misurata dall'arrivo locale: non rileva dati vecchi già accumulati a monte, duplicati o timestamp sorgente falsi. `Float32` non porta timestamp.
+- Nessun watchdog esterno controlla il crash di avoidance: un futuro ricevitore deve scartare setpoint scaduti. Il task P4 prepara questa responsabilità.
+- Stato e velocità viaggiano su due topic separati, senza sincronizzazione atomica. Il logger mostra gli ultimi dati ricevuti.
+- Il frame body `base_link` non viene trasformato verso frame mondo/PX4.
+- Non sono presenti PX4, Gazebo, driver camera o comandi hardware.
+
+La divisione futura in pacchetti va fatta quando le interfacce sono state provate dal gruppo, mantenendo runnable la demo di riferimento.

@@ -1,72 +1,44 @@
-# Install ROS 2 Jazzy on Ubuntu 24.04
+# Ambiente di sviluppo ROS 2 Jazzy
 
-These commands are a short install path for Ubuntu 24.04. If they fail, follow the official ROS 2 Jazzy Ubuntu installation documentation:
+Percorso nativo del team: **Ubuntu 24.04 + ROS 2 Jazzy + Python di sistema**. Per altri sistemi usate l'ambiente Docker nel [README](../../README.md); l'integrazione con host Windows/macOS non è stata verificata localmente.
 
-https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html
+## Installare ROS
 
-## Update Apt and Enable Universe
+Seguite la [guida ufficiale Jazzy per Ubuntu](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html) per locale UTF-8, repository Universe, `ros2-apt-source` e installazione. La variante `ros-jazzy-ros-base` è sufficiente per la demo; desktop è facoltativa.
 
-```bash
-sudo apt update
-sudo apt install software-properties-common
-sudo add-apt-repository universe
-```
+La configurazione dei repository APT evolve: usate i comandi ufficiali, senza copiare vecchie chiavi o repository di altre distribuzioni.
 
-## Install Basic Tools
-
-```bash
-sudo apt update
-sudo apt install curl gnupg lsb-release software-properties-common
-```
-
-## Add the ROS 2 Apt Source
-
-The current ROS 2 Jazzy documentation uses the `ros2-apt-source` package to configure ROS 2 apt sources and keys.
-
-```bash
-sudo apt update
-sudo apt install curl -y
-export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F'"' '{print $4}')
-curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
-sudo dpkg -i /tmp/ros2-apt-source.deb
-```
-
-## Install ROS 2
-
-For this demo, `ros-jazzy-ros-base` is enough:
-
-```bash
-sudo apt update
-sudo apt install ros-jazzy-ros-base
-```
-
-If you also want RViz and desktop demos:
-
-```bash
-sudo apt install ros-jazzy-desktop
-```
-
-## Install Colcon and Rosdep
-
-```bash
-sudo apt install python3-colcon-common-extensions python3-rosdep
-```
-
-If this is a fresh machine and `rosdep` has not been initialized:
-
-```bash
-sudo rosdep init
-rosdep update
-```
-
-## Source ROS 2
+Dopo l'installazione:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
+sudo apt update
+sudo apt install python3-colcon-common-extensions python3-rosdep python3-pytest ros-jazzy-rosbag2
 ```
 
-To source ROS 2 automatically in new bash shells:
+Inizializzate rosdep una sola volta sulla macchina:
 
 ```bash
-echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+sudo rosdep init
+rosdep update --rosdistro jazzy
 ```
+
+Se `rosdep init` dice che esiste già `20-default.list`, proseguite con update senza rimuovere configurazioni esistenti.
+
+## Installare le dipendenze della repo
+
+Dalla radice `Autopilot/`:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+rosdep install --from-paths zefiro_autonomy/src --ignore-src --rosdistro jazzy -y
+bash scripts/doctor.sh
+bash scripts/check.sh
+bash scripts/demo.sh
+```
+
+Ogni nuova shell di ispezione richiede `source scripts/ros_env.sh` e `source install/local_setup.bash`. Gli script di build/test/demo preparano il proprio ambiente automaticamente.
+
+Non installate con `sudo pip` nuove versioni di pytest o librerie ROS. Se usate conda/venv, disattivatelo per questa guida. Per il conflitto pytest trovato sulla macchina dell'audit, vedere [troubleshooting.md](troubleshooting.md).
+
+Riferimenti verificati anche tramite i sorgenti ufficiali: [installazione](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Installation/Ubuntu-Install-Debs.rst), [build con colcon](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.rst).

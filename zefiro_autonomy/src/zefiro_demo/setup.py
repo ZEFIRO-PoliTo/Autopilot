@@ -13,6 +13,7 @@ setup(
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', glob('launch/*.launch.py')),
+        ('share/' + package_name + '/config', glob('config/*.yaml')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -21,7 +22,6 @@ setup(
     description='Minimal ROS 2 demo for the Zefiro autonomy pipeline.',
     license='MIT',
     tests_require=['pytest'],
-    test_suite='test.test_imports',
     entry_points={
         'console_scripts': [
             'avoidance_node = zefiro_demo.avoidance_node:main',

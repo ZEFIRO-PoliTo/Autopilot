@@ -1,0 +1,9 @@
+# Parametri di avvio: modificare e rilanciare la demo.
+avoidance_node:
+  ros__parameters:
+    stop_distance_m: 1.0
+    slowdown_distance_m: 3.0
+    sensor_timeout_s: 0.5
+    goal_timeout_s: 0.5
+    max_velocity_mps: 1.5
+    control_rate_hz: 20.0

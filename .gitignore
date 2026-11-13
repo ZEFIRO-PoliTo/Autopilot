@@ -16,3 +16,11 @@ __pycache__/
 # Local task administration helpers
 scripts/create_github_issues.sh
 .github/issue-bodies/
+
+# Test output and local recordings
+.pytest_cache/
+.coverage
+htmlcov/
+bags/
+*.db3
+*.mcap
