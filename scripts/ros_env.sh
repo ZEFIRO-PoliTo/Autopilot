@@ -5,7 +5,7 @@ if [[ -n "${ROS_DISTRO:-}" && "${ROS_DISTRO}" != jazzy ]]; then
   return 1
 fi
 if [[ ! -f /opt/ros/jazzy/setup.bash ]]; then
-  echo "ROS 2 Jazzy assente. Leggi zefiro_autonomy/docs/INSTALL_ROS2_JAZZY.md" >&2
+  echo "ROS 2 Jazzy is missing. Read zefiro_autonomy/docs/install_ros2_jazzy.md" >&2
   return 1
 fi
 source /opt/ros/jazzy/setup.bash

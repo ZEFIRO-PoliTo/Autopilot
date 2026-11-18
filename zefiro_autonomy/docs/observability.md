@@ -1,6 +1,6 @@
-# Ispezione, registrazione e replay
+# Inspect, record, and replay
 
-Avviare la demo nel primo terminale. Negli altri, dalla radice Autopilot:
+Start the demo in one terminal. In another terminal at the `Autopilot/` root:
 
 ```bash
 source scripts/ros_env.sh
@@ -10,9 +10,9 @@ ros2 topic info /zefiro/setpoint/velocity --verbose
 ros2 topic hz /zefiro/setpoint/velocity
 ```
 
-## Registrare un caso
+## Record a case
 
-Serve `ros-jazzy-rosbag2` (incluso nell'immagine Docker). Usare una directory di output che non esiste già:
+Install `ros-jazzy-rosbag2` (already in the Docker image). Use a new output directory:
 
 ```bash
 mkdir -p bags
@@ -23,21 +23,13 @@ ros2 bag record -o bags/demo_01 \
   /zefiro/safety/state
 ```
 
-Attendere almeno un ciclo di 24 secondi, poi Ctrl+C. `ros2 bag info bags/demo_01` mostra durata, tipi e numero di messaggi. `bags/` è ignorata da Git; allegare alla PR i comandi e una breve sintesi, non dati voluminosi.
+Record at least one 24-second cycle, then Ctrl+C. `ros2 bag info bags/demo_01` shows duration, types, and message counts. `bags/` is ignored by Git. Include commands and a short summary in the PR, not a large bag.
 
-## Rivedere un'esecuzione registrata
+## Review or recompute
 
-Fermare la demo e ogni publisher manuale, quindi:
+Stop the demo and manual publishers. `ros2 bag play bags/demo_01` republishes **recorded inputs and outputs**; it does not prove that the current code makes the same decisions.
 
-```bash
-ros2 bag play bags/demo_01
-```
-
-In un altro terminale osservare `ros2 topic echo /zefiro/safety/state`. Questo ripubblica anche le vecchie uscite: **non dimostra che il codice corrente sia corretto**.
-
-## Ricalcolare le uscite con il codice corrente
-
-Fermare il playback completo. Avviare `ros2 run zefiro_demo avoidance_node` in un terminale e, in un altro:
+To recompute outputs with current code, stop that playback, run `ros2 run zefiro_demo avoidance_node` in one shell and in another:
 
 ```bash
 ros2 bag play bags/demo_01 --topics \
@@ -45,19 +37,18 @@ ros2 bag play bags/demo_01 --topics \
   /zefiro/mission/goal_velocity
 ```
 
-Così avoidance riceve solo gli input registrati e produce nuove uscite. Non avviare i publisher finti. Alla fine della registrazione deve comparire `SENSOR_TIMEOUT`. I watchdog usano il tempo reale di ricezione: un replay rallentato o sospeso può produrre timeout ed è una prova distinta.
+Do not run the synthetic publishers during this replay. After the bag ends, expect `SENSOR_TIMEOUT`. Watchdogs use local arrival time; slow or paused replay may itself cause timeouts.
 
-## Evidenza di una prova
+Record evidence using this short template:
 
 ```text
 Commit:
-Ambiente e ROS_DOMAIN_ID:
-Launch/comandi:
-Input (o bag e velocità di replay):
-Stati e velocità osservati:
-Interruzione sensore/goal:
-Ripresa:
-Esito e limiti:
+Environment and ROS_DOMAIN_ID:
+Launch/commands:
+Inputs or bag and replay speed:
+Observed states and velocities:
+Sensor/goal interruption and recovery:
+Result and limits:
 ```
 
-I due topic di output non sono sincronizzati atomicamente. Per il confronto numerico usare i test; il logger è uno strumento didattico.
+Output topics are not atomic or synchronized. Use tests for precise numerical comparisons; the logger is an inspection aid.

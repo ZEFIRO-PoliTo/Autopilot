@@ -1,10 +1,9 @@
-# Sorgenti e documentazione dell'autonomia
+# Zefiro autonomy workspace
 
-Il workspace si compila dalla **radice Autopilot**, un livello sopra questa cartella.
+The source package is `src/zefiro_demo/`. Run the scripts from the parent `Autopilot/` directory.
 
-- [README e avvio](../README.md)
-- [Primi passi](docs/primi_passi.md)
-- [Piano per cinque persone](docs/task_plan.md)
-- [Architettura e topic](docs/architecture.md)
+- [Exercise](docs/getting_started.md)
+- [Work plan](docs/task_plan.md)
+- [Architecture](docs/architecture.md)
 
-Il codice da modificare è in `src/zefiro_demo/`. Le vecchie cartelle locali `build/`, `install/`, `log/` eventualmente presenti qui non sono sorgenti: non usarle per avviare la demo.
+Any old `build/`, `install/`, or `log/` directories inside this folder are generated files, not source code. Do not source them.

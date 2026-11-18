@@ -1,28 +1,28 @@
 ---
-name: Attività del team
-about: Una piccola attività ROS con input, output e prova riproducibile
-title: "[P1–P5] Descrizione breve"
+name: Team task
+about: A small ROS task with input, output, and a reproducible check
+title: "[P1–P5] Short description"
 labels: ""
 assignees: ""
 ---
 
-## Obiettivo
-Comportamento da ottenere:
-Persona/area del piano e reviewer:
+## Goal
+Expected behavior:
+Owner/area and reviewer:
 
-## File coinvolti e dipendenze
-File da modificare:
-Dipendenze da altre attività (oppure nessuna):
+## Files and dependencies
+Files to change:
+Dependencies on other tasks, if any:
 
-## Esempio verificabile
-Input e comando:
-Output atteso:
+## Verifiable example
+Input and command:
+Expected output:
 
-## Consegna
-- [ ] Codice o documento richiesto
-- [ ] Test pertinente o prova documentata
-- [ ] `bash scripts/check.sh` passa
-- [ ] Smoke della demo se cambia il runtime
-- [ ] Un'altra persona riproduce la prova
+## Done when
+- [ ] Requested code or document is present
+- [ ] Relevant test or documented check exists
+- [ ] `bash scripts/check.sh` passes
+- [ ] Demo smoke passes if runtime changed
+- [ ] Another contributor reproduces the result
 
-## Blocchi e limiti
+## Blockers and limits

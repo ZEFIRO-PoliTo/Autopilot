@@ -1,62 +1,56 @@
-# Lavorare insieme senza sovrapporsi
+# Working together
 
-Ogni attività ha un owner e un reviewer nel [piano](task_plan.md). Prima di scrivere codice riportate nella issue: input, output atteso, file coinvolti e una prova di accettazione.
+Each task has an owner and reviewer in the [work plan](task_plan.md). Before coding, write the input, expected output, affected files, and acceptance check in the issue.
 
-## Branch e PR
+## Branch and PR
 
-Dalla radice della repo, con working tree pulito:
+From a clean `Autopilot/` root:
 
 ```bash
 git switch main
 git pull --ff-only
 git switch -c task/p1-goal-parameter
-# Modifica piccola, poi:
+# Make one small change, then:
 bash scripts/check.sh
 python3 scripts/smoke_demo.py
 git status --short
-git add percorso/del/file.py percorso/del/test.py
+git add path/to/file.py path/to/test.py
 git commit -m "Add configurable mission velocity"
 git push -u origin task/p1-goal-parameter
 ```
 
-Sostituite nome del branch e percorsi con quelli della vostra attività. Aprite una PR verso `main`; il template chiede comportamento, prova riproducibile e limiti. Evitate `git add .` finché non sapete spiegare ogni file nella lista.
+Replace the branch and paths with your own task. Open a PR into `main`; the template asks for the changed behavior, a reproducible check, and limits. Review `git status` before adding files. A useful first PR can also fix an exercise instruction if it documents the failing and verified commands.
 
-La prima PR può essere una correzione della guida scoperta durante l'esercizio, purché descriva il comando fallito e quello verificato.
+## Shared checks
 
-## Comandi condivisi
+- `bash scripts/build.sh`: build from source.
+- `bash scripts/check.sh`: build, test, and show results; fails on test failure.
+- `python3 scripts/smoke_demo.py`: run a full launch cycle; first build and use the standard YAML.
+- `bash scripts/doctor.sh`: show the environment, dependencies, and installed package.
 
-- `bash scripts/build.sh`: compila dai soli sorgenti.
-- `bash scripts/check.sh`: build, test, lettura dei risultati; fallisce se fallisce un test.
-- `python3 scripts/smoke_demo.py`: avvia il launch per un intero ciclo; richiede prima la build e il YAML standard.
-- `bash scripts/doctor.sh`: mostra ambiente, dipendenze e pacchetto trovato.
+Stop the demo before tests, since competing publishers can alter results. CI checks Jazzy and the Docker path, not hardware.
 
-Chiudete la demo prima dei test: publisher concorrenti nello stesso dominio alterano i risultati. La CI usa un ambiente Jazzy e verifica anche il percorso Docker. Non vengono eseguiti controlli su hardware.
+## Review and merge
 
-## Review e merge
+A reviewer should reproduce the result from written commands. Check topic names, invalid parameters, and new dependencies in `package.xml`. Team practice is one approval and green CI before merge, with an additional area review for stopping logic, contracts, or output. P5 coordinates shared packaging and launch edits. These are team rules; GitHub enforcement has not been verified or configured.
 
-Il reviewer deve poter rifare l'esempio senza istruzioni private. Controlla che i nomi dei topic siano compatibili, i parametri invalidi siano rifiutati e le nuove dipendenze siano dichiarate in `package.xml`.
+After a merge, update `main`, rebase open branches if needed, and rerun checks after resolving conflicts with the file owner.
 
-Una approvazione e CI verde prima del merge. Per logica di arresto, contratti e output chiedete anche la review del referente dell'area. P5 coordina le modifiche condivise a packaging e launch e integra una PR alla volta.
+## Keep generated files out of Git
 
-Sono regole del team; **non è stato verificato né configurato** che GitHub le imponga. Il maintainer può impostare branch protection e controlli richiesti dopo il primo run CI.
+Ignore `build/`, `install/`, `log/`, Python/pytest caches, and `bags/`. Edit source under `zefiro_autonomy/src/`, never copies in build/install.
 
-Dopo un merge, aggiornate `main` e riallineate i branch aperti. Se c'è un conflitto su un file condiviso risolvetelo con il suo owner, poi rieseguite i test.
+## If work is blocked
 
-## Cosa resta fuori da Git
-
-`build/`, `install/`, `log/`, cache Python/pytest e registrazioni in `bags/`. Non modificare copie di codice dentro build/install: i sorgenti sono in `zefiro_autonomy/src/`.
-
-## Quando qualcosa blocca il lavoro
-
-Dopo un tentativo ragionato, condividete nella issue:
+Share this information in the issue after a reasonable attempt:
 
 ```text
-Ambiente: Ubuntu/Docker, versione ROS, dominio
-Branch e commit:
-Comando esatto:
-Risultato atteso:
-Errore osservato:
-Tentativi già fatti:
+Environment: Ubuntu/Docker, ROS version, domain
+Branch and commit:
+Exact command:
+Expected result:
+Observed error:
+Attempts so far:
 ```
 
-Per i problemi comuni vedere [troubleshooting.md](troubleshooting.md).
+See [troubleshooting.md](troubleshooting.md) for common problems.

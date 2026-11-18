@@ -1,6 +1,6 @@
-# Architettura e contratti della demo
+# Demo architecture and topic contracts
 
-Un pacchetto Python, `zefiro_demo`, con quattro nodi. La logica numerica è in `avoidance_core.py`; `avoidance_node.py` gestisce messaggi, timer e freschezza degli input.
+One Python package, `zefiro_demo`, contains four nodes. `avoidance_core.py` makes the numerical decision without ROS. `avoidance_node.py` handles messages, timers, and input freshness.
 
 ```mermaid
 flowchart LR
@@ -12,30 +12,28 @@ flowchart LR
     G --> L
 ```
 
-## Topic
+## Topics
 
-Tutti i nomi iniziano con `/zefiro/`.
-
-| Nome completo | Tipo | Produttore → consumatori | Contratto |
+| Topic | Type | Producer → consumers | Contract |
 | --- | --- | --- | --- |
-| `/zefiro/perception/front_clearance` | `std_msgs/msg/Float32` | sensore finto → avoidance, logger | Metri; negativo, NaN e infinito invalidi; 10 Hz nella demo |
-| `/zefiro/mission/goal_velocity` | `geometry_msgs/msg/TwistStamped` | missione finta → avoidance, logger | m/s; frame esattamente `base_link`; x ≥ 0 finito; altri cinque componenti zero; 20 Hz |
-| `/zefiro/setpoint/velocity` | `geometry_msgs/msg/TwistStamped` | avoidance → logger | x filtrato; altri componenti zero; frame `base_link`; stamp al momento della pubblicazione; 20 Hz di default |
-| `/zefiro/safety/state` | `std_msgs/msg/String` | avoidance → logger | Stato della decisione, pubblicato a ogni controllo |
+| `/zefiro/perception/front_clearance` | `std_msgs/msg/Float32` | Synthetic sensor → avoidance, logger | Metres; negative, NaN, or infinite values invalid; 10 Hz in the demo |
+| `/zefiro/mission/goal_velocity` | `geometry_msgs/msg/TwistStamped` | Synthetic mission → avoidance, logger | m/s; frame exactly `base_link`; finite x ≥ 0; other five components zero; 20 Hz |
+| `/zefiro/setpoint/velocity` | `geometry_msgs/msg/TwistStamped` | Avoidance → logger | Filtered x, other components zero; `base_link`; fresh publication stamp; 20 Hz default |
+| `/zefiro/safety/state` | `std_msgs/msg/String` | Avoidance → logger | Decision state, published each control cycle |
 
-QoS attuale: reliable, volatile; avoidance mantiene solo l'ultimo campione in coda (depth 1). Le sorgenti finte e il logger usano depth 10. Un futuro driver sensore best-effort richiederà una scelta QoS esplicita e test di compatibilità.
+QoS is reliable and volatile. Avoidance retains one incoming sample; the synthetic sources and logger use depth 10. A future best-effort sensor driver will need an explicit QoS compatibility check.
 
-## Decisione: ordine dei controlli
+## Decision order
 
-1. Sensore mai ricevuto, troppo vecchio o età invalida → `SENSOR_TIMEOUT`, zero.
-2. Distanza negativa/non finita → `INVALID_INPUT`, zero.
-3. Goal mai ricevuto, troppo vecchio o età invalida → `GOAL_TIMEOUT`, zero.
-4. Goal negativo/non finito, frame diverso o altri assi non zero → `INVALID_INPUT`, zero.
-5. Distanza ≤ stop → `STOP`, zero.
-6. Tra stop e slowdown → `SLOWDOWN`, velocità ridotta linearmente.
-7. Distanza ≥ slowdown → `CLEAR`, velocità richiesta limitata.
+1. Missing, stale, or invalid sensor age → `SENSOR_TIMEOUT`, zero.
+2. Negative or non-finite distance → `INVALID_INPUT`, zero.
+3. Missing, stale, or invalid goal age → `GOAL_TIMEOUT`, zero.
+4. Negative/non-finite goal, wrong frame, or nonzero extra axes → `INVALID_INPUT`, zero.
+5. Distance ≤ stop threshold → `STOP`, zero.
+6. Between stop and slowdown thresholds → `SLOWDOWN`, linearly scaled speed.
+7. Distance ≥ slowdown threshold → `CLEAR`, bounded requested speed.
 
-La saturazione viene applicata **prima** del rallentamento:
+The requested speed is limited **before** slowdown:
 
 ```text
 limited = min(goal_vx, max_velocity_mps)
@@ -43,32 +41,32 @@ scale = (clearance - stop_distance_m) / (slowdown_distance_m - stop_distance_m)
 cmd_vx = limited * scale
 ```
 
-Esempi con default: 5 m / goal 1 → 1; 2 m / goal 1 → 0.5; 2 m / goal 100 → 0.75; 0.7 m → 0. Il comando non diventa negativo.
+With defaults, 5 m / goal 1 → 1 m/s; 2 m / goal 1 → 0.5 m/s; 2 m / goal 100 → 0.75 m/s; 0.7 m → 0 m/s. The command never becomes negative.
 
-## Parametri di avvio
+## Start-up parameters
 
-File: `src/zefiro_demo/config/demo.yaml` (relativo a `zefiro_autonomy/`).
+Set in `src/zefiro_demo/config/demo.yaml` relative to `zefiro_autonomy/`.
 
-| Parametro | Default | Vincolo |
+| Parameter | Default | Constraint |
 | --- | --- | --- |
-| `stop_distance_m` | 1.0 | ≥ 0 e minore di slowdown |
-| `slowdown_distance_m` | 3.0 | maggiore di stop |
-| `sensor_timeout_s` | 0.5 | positivo |
-| `goal_timeout_s` | 0.5 | positivo |
-| `max_velocity_mps` | 1.5 | positivo |
-| `control_rate_hz` | 20.0 | positivo |
+| `stop_distance_m` | 1.0 | ≥ 0 and below slowdown |
+| `slowdown_distance_m` | 3.0 | Above stop |
+| `sensor_timeout_s` | 0.5 | Positive |
+| `goal_timeout_s` | 0.5 | Positive |
+| `max_velocity_mps` | 1.5 | Positive |
+| `control_rate_hz` | 20.0 | Positive |
 
-Tutti devono essere finiti e nel YAML vanno scritti come numeri decimali. Parametri invalidi impediscono l'avvio; quelli di avoidance sono read-only durante l'esecuzione. Modificare il YAML e rilanciare.
+All values must be finite; write YAML values as decimals. Invalid configuration prevents startup. Avoidance parameters are read-only after startup: edit YAML and relaunch.
 
-I watchdog usano il tempo monotono locale di ricezione e un timer steady: continuano anche se `use_sim_time` è fermo. Il timeout scatta quando l'età supera 0.5 s; il successivo ciclo di controllo aggiunge nominalmente fino a 0.05 s, oltre al ritardo dello scheduler. Non è una garanzia real-time.
+Watchdogs use local monotonic arrival time and a steady timer, so they run even when simulated ROS time stops. A timeout occurs after 0.5 s; the next control tick adds nominally up to 0.05 s plus scheduling delay. This is not a real-time guarantee.
 
-## Limiti espliciti
+## Limits
 
-- È una demo 1D, senza percezione geometrica, frenata dinamica, accelerazione limitata o modello del drone.
-- La freschezza è misurata dall'arrivo locale: non rileva dati vecchi già accumulati a monte, duplicati o timestamp sorgente falsi. `Float32` non porta timestamp.
-- Nessun watchdog esterno controlla il crash di avoidance: un futuro ricevitore deve scartare setpoint scaduti. Il task P4 prepara questa responsabilità.
-- Stato e velocità viaggiano su due topic separati, senza sincronizzazione atomica. Il logger mostra gli ultimi dati ricevuti.
-- Il frame body `base_link` non viene trasformato verso frame mondo/PX4.
-- Non sono presenti PX4, Gazebo, driver camera o comandi hardware.
+- This is a one-dimensional demo with no geometric perception, braking model, acceleration limit, or drone dynamics.
+- Arrival-time freshness does not detect old samples queued upstream, duplicates, or false source timestamps. `Float32` has no timestamp.
+- No external watchdog handles a crash of avoidance. A future receiver must reject stale setpoints; task P4 addresses this.
+- Velocity and state are separate topics. Logger output combines the latest samples; it is not an atomic snapshot.
+- The `base_link` body frame is not transformed to world or PX4 frames.
+- There is no PX4, Gazebo, camera driver, or hardware command in the current demo.
 
-La divisione futura in pacchetti va fatta quando le interfacce sono state provate dal gruppo, mantenendo runnable la demo di riferimento.
+Split the package only after the group has tried the interfaces, keeping the reference demo runnable.

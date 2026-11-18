@@ -16,6 +16,6 @@ def generate_launch_description():
     ]
     return LaunchDescription([
         DeclareLaunchArgument('config', default_value=default_config,
-                              description='YAML dei parametri di avoidance'),
+                              description='YAML configuration for avoidance'),
         *nodes,
     ])

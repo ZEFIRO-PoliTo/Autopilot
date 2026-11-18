@@ -17,7 +17,7 @@ def main():
             stderr=subprocess.STDOUT, start_new_session=True)
         try:
             process.wait(timeout=27)
-            raise RuntimeError('La demo è terminata prima del ciclo completo')
+            raise RuntimeError('The demo ended before the full cycle')
         except subprocess.TimeoutExpired:
             pass
         finally:
@@ -42,15 +42,15 @@ def main():
         pattern = (rf'\b{state}\s+\| clearance={re.escape(clearance)} m'
                    rf' \| goal_vx=1\.00 \| cmd_vx={re.escape(velocity)}')
         if not re.search(pattern, output):
-            errors.append(f'Manca {state}: clearance={clearance}, cmd_vx={velocity}')
+            errors.append(f'Missing {state}: clearance={clearance}, cmd_vx={velocity}')
     if 'Traceback (most recent call last)' in output or 'process has died' in output:
-        errors.append('Un nodo ha prodotto un errore')
+        errors.append('A node failed')
     if output.count('process has finished cleanly') != 4:
-        errors.append('I quattro nodi non hanno confermato una chiusura pulita')
+        errors.append('The four nodes did not shut down cleanly')
     if errors:
         print(output)
         raise RuntimeError('; '.join(errors))
-    print('PASS: launch completo, CLEAR → SLOWDOWN → STOP → INVALID_INPUT, uscita pulita')
+    print('PASS: complete launch, CLEAR → SLOWDOWN → STOP → INVALID_INPUT, clean shutdown')
 
 
 if __name__ == '__main__':

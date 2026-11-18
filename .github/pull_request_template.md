@@ -1,18 +1,18 @@
-## Attività
-Persona/area e task del piano:
+## Goal and scope
+Task and owner from the work plan:
 
-## Cambiamento
-Problema, comportamento prima/dopo e file principali:
+## Behavior
+Problem, before/after behavior, and main files:
 
-## Prova riproducibile
+## Reproducible check
 Input:
-Output atteso e osservato:
+Expected and observed output:
 
-- [ ] `bash scripts/check.sh` passa
-- [ ] `python3 scripts/smoke_demo.py` passa (se cambia nodi/launch/config)
-- [ ] Documentazione e contratti aggiornati
-- [ ] Nessun build/install/log/bag aggiunto a Git
+- [ ] `bash scripts/check.sh` passes
+- [ ] `python3 scripts/smoke_demo.py` passes if nodes, launch, or config changed
+- [ ] Documentation and topic contracts are updated
+- [ ] No build/install/log/bag files are committed
 
-## Limiti e revisione
-Limiti rimasti:
+## Limits and review
+Remaining limits:
 Reviewer:
