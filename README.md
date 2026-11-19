@@ -37,7 +37,7 @@ Build files and logs go into `build/`, `install/`, and `log/` at the repository 
 
 ## Docker alternative
 
-Requires Docker Engine and Compose v2. See the [audit](zefiro_autonomy/docs/audit.md) for local verification limits.
+Requires Docker Engine and Compose v2. This is an optional local setup; see the [audit](zefiro_autonomy/docs/audit.md) for verification limits.
 
 ```bash
 docker compose build

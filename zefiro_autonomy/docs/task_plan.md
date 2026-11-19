@@ -54,6 +54,6 @@ Rotate roles next cycle. Someone who finishes early can help reproduce or review
 
 ## Later backlog
 
-The previous T0–T9 plan covered setup, packages, synthetic and camera perception, avoidance, PX4 output, scenarios, observability, CI, and integration. Setup, CI, and part of avoidance/scenarios are prepared; packages, camera, output, and integration remain future work.
+The previous T0–T9 plan covered setup, packages, synthetic and camera perception, avoidance, PX4 output, scenarios, observability, and integration. Setup and part of avoidance/scenarios are prepared; packages, camera, output, and integration remain future work. Automated CI is deferred.
 
 The earlier camera candidate was **Orbbec Gemini 336L**. Before implementing it, confirm the actual device, driver version, topics, encoding, units, frames, and calibration. Old range/default assumptions are not measurements. PX4/SITL follows a reproducible synthetic pipeline and a mock receiver with a watchdog. Frame, failsafe, and hardware limits require separate testing. This demo is not a flight controller.
