@@ -10,6 +10,8 @@ requested velocity ───────┘
 
 ## Start here
 
+[Autopilot presentation (PDF)](zefiro_autonomy/docs/zefiro_autopilot_presentation.pdf) gives a short overview of the current demo and next steps.
+
 1. [Exercise: run and inspect the demo](zefiro_autonomy/docs/getting_started.md).
 2. [Plan for five contributors](zefiro_autonomy/docs/task_plan.md).
 3. [Architecture and topic contracts](zefiro_autonomy/docs/architecture.md).
